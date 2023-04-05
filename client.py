@@ -31,7 +31,7 @@ def write():
             if message[len(nickname)+2:].startswith('/kick'):
                 client.send(f'KICK {message[len(nickname)+2+6:]}'.encode('ascii'))
             elif message[len(nickname)+2:].startswith('/rooms'):
-                client.send(f'ROOMS {nickname} {message[len(nickname)+2+6:]}'.encode('ascii'))
+                client.send(f'ROOMS {nickname}{message[len(nickname)+2+6:]}'.encode('ascii'))
             """elif message[len(nickname)+2:].startswith('/private'):
                 client.send(f'PRIVATE {message[len(nickname)+2+6:]}'.encode('ascii'))"""
         else:
