@@ -10,7 +10,7 @@ server.listen()
 
 clients = []
 nicknames = []
-#rooms = ['JavaScript', 'C/C#', 'Python']
+rooms = ['JavaScript', 'C/C#', 'Python']
 
 def broadcast(msg):
     for client in clients:
@@ -26,12 +26,13 @@ def handle(client):
                 name_to_kick = msg.decode('ascii')[5:]
                 print("Hello")
                 kick_user(name_to_kick)
-            else:
-                broadcast(message)
-            """if msg.decode('ascii').startswith('ROOMS'):
+            elif msg.decode('ascii').startswith('ROOMS'):
                 print(rooms)
                 name = msg.decode('ascii')[6:]
-                printList(name)"""
+                printList(name)
+            else:
+                broadcast(message)
+            
              
         except:
             index = clients.index(client)
@@ -97,16 +98,20 @@ def kick_user(name):
         
         
 
-#def printList(name):
- #   print(name)
-  #  print(nicknames)
-   # print("hello")
-    #name_index = nicknames.index(name)
-    #client_for_show = clients[name_index]
-    #name_index2 = nicknames.index(name)
-    #print(name_index2)
-    #client_for_show = clients[name_index2]
-    #client_for_show.send("THE ROOMS").encode('ascii')
+def printList(names):
+    for i in nicknames:
+        if(str(i) == str(names)):
+            print("True")
+            name_index = nicknames.index(i)
+            client_for_show = clients[name_index]
+            print(client_for_show)
+            client_for_show.send(f" The rooms to choose {rooms}".encode('ascii'))
+
+        
+        
+        #
+        #
+        #client_for_show.send("THE ROOMS").encode('ascii')
 
 def leave(name):
     name_index = nicknames.index(name)
