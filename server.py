@@ -54,7 +54,14 @@ def handle(client):
             elif msg.decode('ascii').startswith('HELP'):
                 name = msg.decode('ascii')[5:]
                 printMenu(name)
-            
+            #Private messages
+            elif msg.decode('ascii').startswith('PRIVATE'):
+                names = msg.decode('ascii')[8:]
+                details = names.split(" ")
+                sender = details[0]
+                recipient = details[1]
+                privatemsg = msg.decode('ascii')[8+len(sender)+len(recipient)+2:]
+                sendPrivate(sender, recipient, privatemsg)
             # Broadcasting Messages
             else:
                 broadcast(message)
@@ -93,7 +100,7 @@ def handle(client):
                 broadcast(message)"""
 
 def menu():
-     message = '\n\n***********_MENU_*********\nType "/help" to see menu\nType "/kick" (name) to kick out\nType "/rooms" to see topic rooms\nType "/online" to see client online\nLeave chat by pressing ctrl + C\n***************************'
+     message = '\n\n***********_MENU_*********\nType "/help" to see menu\nType "/kick (name)" to kick out\nType "/rooms" to see topic rooms\nType "/online" to see client online\nType "/private (name) (message)" to send private message\nLeave chat by pressing ctrl + C\n***************************'
      return message
     
 # Receiving / Listening Function
@@ -170,6 +177,12 @@ def printMenu(name):
         message = menu()
         client_for_menu.send(f"{message}".encode('ascii'))
 
+#Private messages
+def sendPrivate(sender, recipient, msg):
+    if recipient in nicknames:
+        name_index = nicknames.index(recipient)        
+        client_to_send = clients[name_index]
+        client_to_send.send(f"{sender} (Private): {msg}".encode('ascii'))
 
 #Leave from chat
 def leaveChat(name):
