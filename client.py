@@ -43,18 +43,16 @@ def write():
                 client.send(f'ONLINE {nickname}'.encode('ascii'))
             elif message[len(nickname)+2:].startswith('/help'):
                 client.send(f'HELP {nickname}'.encode('ascii'))
-            
-            """
-            
-            
+            elif message[len(nickname)+2:].startswith('/private'):
+                client.send(f'PRIVATE {nickname} {message[len(nickname)+2+9:]}'.encode('ascii'))
+            """          
             elif message[len(nickname)+2:].startswith('/leave'):
                 client.send(f'LEAVE {nickname}'.encode('ascii'))
             elif message[len(nickname)+2:].startswith('/goRoom'):
                 client.send(f'GOROOM {roomname}{message[len(nickname)+2+6:]}'.encode('ascii'))
             elif message[len(nickname)+2:].startswith('/goPrivate'):
                 client.send(f'GOPRIVATE {message[len(nickname)+2+6:]}'.encode('ascii'))
-            elif message[len(nickname)+2:].startswith('/private'):
-                client.send(f'PRIVATE {message[len(nickname)+2+6:]}'.encode('ascii'))"""
+            """
         else:
             client.send(message.encode('ascii'))
 
