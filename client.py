@@ -36,7 +36,7 @@ def write():
             client.send(f'LEAVE {nickname}'.encode('ascii'))"""
         if (message[len(nickname)+2:].startswith('/')):
             if message[len(nickname)+2:].startswith('/kick'):
-                client.send(f'KICK {message[len(nickname)+2+6:]}'.encode('ascii'))
+                client.send(f'KICK {nickname} {message[len(nickname)+2+6:]}'.encode('ascii'))
             elif message[len(nickname)+2:].startswith('/rooms'):
                 client.send(f'ROOMS {nickname}'.encode('ascii'))
             elif message[len(nickname)+2:].startswith('/online'):
