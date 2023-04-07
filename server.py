@@ -32,19 +32,18 @@ def handle(client):
     while True:
         try:
             msg = message = client.recv(1024)
-            print(msg)
-            print(nicknames)
             # Check if something what user wants to do
             #Kick named user out of chat
             if msg.decode('ascii').startswith('KICK'):
                 name_to_kick = msg.decode('ascii')[5:]
-                print("Hello")
-                kick_user(name_to_kick)
+                names = msg.decode('ascii')[5:]
+                details = names.split(" ")
+                sender = details[0]
+                kick = details[1]
+                kick_user(sender, kick)
             # Prints out rooms user can choose
             elif msg.decode('ascii').startswith('ROOMS'):
-                print(rooms)
                 name = msg.decode('ascii')[6:]
-                print(name)
                 printRooms(name)
             # Print online Clients out
             elif msg.decode('ascii').startswith('ONLINE'):
@@ -128,25 +127,27 @@ def receive():
         thread = threading.Thread(target=handle, args=(client,))
         thread.start()
 
-def kick_user(name):
-    print(name)
+def kick_user(sender, kick):
     #If user in nicnames then kick out from room
-    if name in nicknames:
-        name_index = nicknames.index(name)
-        nicknames.remove(name)
+    if kick in nicknames:
+        name_index = nicknames.index(kick)
+        nicknames.remove(kick)
         
         client_to_kick = clients[name_index]
         clients.remove(client_to_kick)
-        broadcast(f'{name} was kicked out'.encode('ascii'))
+        broadcast(f'{kick} was kicked out'.encode('ascii'))
         client_to_kick.send("You were kicked out".encode('ascii'))
         client_to_kick.close()
+    else:
+        name_index = nicknames.index(sender)        
+        client_to_send = clients[name_index]
+        client_to_send.send(f"No user named {kick} in online".encode('ascii'))
         
-        
-def findClient(name):
-    for i in nicknames:
-        name_index = nicknames.index(i)
+"""def findClient(name):
+    if name in nicknames:
+        name_index = nicknames.index(name)
         client= clients[name_index]
-        return client
+        return client"""
     
 # Prints list of rooms()
 def printRooms(names):
@@ -183,9 +184,13 @@ def sendPrivate(sender, recipient, msg):
         name_index = nicknames.index(recipient)        
         client_to_send = clients[name_index]
         client_to_send.send(f"{sender} (Private): {msg}".encode('ascii'))
+    else:
+        name_index = nicknames.index(sender)        
+        client_to_send = clients[name_index]
+        client_to_send.send(f"No user named {recipient} in online".encode('ascii'))
 
 #Leave from chat
-def leaveChat(name):
+"""def leaveChat(name):
     print('Hello')
 
     name_index = nicknames.index(name)
@@ -195,7 +200,7 @@ def leaveChat(name):
     broadcast(f'{name} left the chat'.encode('ascii'))
     client_to_leave.send("You left the chat".encode('ascii'))
     client_to_leave.close()
-    
+    """
     
     
     
