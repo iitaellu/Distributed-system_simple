@@ -127,20 +127,25 @@ def receive():
         thread.start()
 
 def kick_user(sender, kick):
-    #If user in nicnames then kick out from room
-    if  kick in nicknames:
-        name_index = nicknames.index(kick)
-        nicknames.remove(kick)
-        
-        client_to_kick = clients[name_index]
-        clients.remove(client_to_kick)
-        broadcast(f'{kick} was kicked out'.encode('ascii'))
-        client_to_kick.send("You were kicked out".encode('ascii'))
-        client_to_kick.close()
+    if(sender != kick):
+        #If user in nicnames then kick out from room
+        if  kick in nicknames:
+            name_index = nicknames.index(kick)
+            nicknames.remove(kick)
+            
+            client_to_kick = clients[name_index]
+            clients.remove(client_to_kick)
+            broadcast(f'{kick} was kicked out'.encode('ascii'))
+            client_to_kick.send("You were kicked out".encode('ascii'))
+            client_to_kick.close()
+        else:
+            name_index = nicknames.index(sender)        
+            client_to_send = clients[name_index]
+            client_to_send.send(f"No user named {kick} in online".encode('ascii'))
     else:
         name_index = nicknames.index(sender)        
         client_to_send = clients[name_index]
-        client_to_send.send(f"No user named {kick} in online".encode('ascii'))
+        client_to_send.send(f"You can't kick yourself out. To left chat room press CTRL + C".encode('ascii'))
         
 """def findClient(name):
     if name in nicknames:
@@ -179,14 +184,19 @@ def printMenu(name):
 
 #Private messages
 def sendPrivate(sender, recipient, msg):
-    if recipient in nicknames:
-        name_index = nicknames.index(recipient)        
-        client_to_send = clients[name_index]
-        client_to_send.send(f"{sender} (Private): {msg}".encode('ascii'))
+    if sender != recipient:
+        if recipient in nicknames:
+            name_index = nicknames.index(recipient)        
+            client_to_send = clients[name_index]
+            client_to_send.send(f"{sender} (Private): {msg}".encode('ascii'))
+        else:
+            name_index = nicknames.index(sender)        
+            client_to_send = clients[name_index]
+            client_to_send.send(f"No user named {recipient} in online".encode('ascii'))
     else:
         name_index = nicknames.index(sender)        
         client_to_send = clients[name_index]
-        client_to_send.send(f"No user named {recipient} in online".encode('ascii'))
+        client_to_send.send("You can't send yourself private message".encode('ascii'))
 
 #Go Topic room
 def goRoom(sender, room):
@@ -201,18 +211,23 @@ def goRoom(sender, room):
 
 #Go private room
 def goPrivate(sender, buddy):
-    if buddy in nicknames:
-        name_index_sender = nicknames.index(sender)        
-        client_to_go_sender = clients[name_index_sender]
-        client_to_go_sender.send(f"{sender} suppose to go private room with: {buddy}".encode('ascii'))
+    if(buddy != sender):
+        if buddy in nicknames:
+            name_index_sender = nicknames.index(sender)        
+            client_to_go_sender = clients[name_index_sender]
+            client_to_go_sender.send(f"{sender} suppose to go private room with: {buddy}".encode('ascii'))
 
-        name_index_buddy = nicknames.index(buddy)        
-        client_to_go_buddy = clients[name_index_buddy]
-        client_to_go_buddy.send(f"{buddy} suppose to go private room with: {sender}".encode('ascii'))
-    else:
+            name_index_buddy = nicknames.index(buddy)        
+            client_to_go_buddy = clients[name_index_buddy]
+            client_to_go_buddy.send(f"{buddy} suppose to go private room with: {sender}".encode('ascii'))
+        else:
+            name_index_sneder = nicknames.index(sender)        
+            client_to_error = clients[name_index_sneder]
+            client_to_error.send(f"No client named {buddy} in online".encode('ascii'))
+    else: 
         name_index_sneder = nicknames.index(sender)        
         client_to_error = clients[name_index_sneder]
-        client_to_error.send(f"No client named {buddy} in online".encode('ascii'))
+        client_to_error.send("You can't go private room alone".encode('ascii'))
 
 #Leave from chat
 """def leaveChat(name):
