@@ -15,6 +15,8 @@ nickname = input("choose a nickname: ")
 client = socket.socket(socket.AF_INET, socket.SOCK_STREAM)
 client.connect(('127.0.0.1', 3000))
 
+stop_thread = False
+
 # Listening to Server and Sending Nickname
 def receive():
     while True:
