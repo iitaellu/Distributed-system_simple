@@ -15,8 +15,6 @@ nickname = input("choose a nickname: ")
 client = socket.socket(socket.AF_INET, socket.SOCK_STREAM)
 client.connect(('127.0.0.1', 3000))
 
-stop_thread = False
-
 # Listening to Server and Sending Nickname
 def receive():
     while True:
@@ -39,8 +37,6 @@ def receive():
 def write():
     while True:
         message = f'{nickname}: {input("")}' 
-        """if (message[len(nickname)+2:] == "quit"):
-            client.send(f'LEAVE {nickname}'.encode('ascii'))"""
         if (message[len(nickname)+2:].startswith('/')):
             if message[len(nickname)+2:].startswith('/kick'):
                 client.send(f'KICK {nickname} {message[len(nickname)+2+6:]}'.encode('ascii'))
@@ -59,8 +55,6 @@ def write():
             """          
             elif message[len(nickname)+2:].startswith('/leave'):
                 client.send(f'LEAVE {nickname}'.encode('ascii'))
-            
-            
             """
         else:
             client.send(message.encode('ascii'))
