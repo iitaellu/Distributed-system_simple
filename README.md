@@ -6,9 +6,20 @@ Program is simple TCP chatroom, where everyone are in one big room. Client can k
 
 ## How to run
 
+Copy or download server.py and client.py files. Then open few terminal and run one of them server.py and other client.py. Now you have server and some clients connected to it.
 
 ## Comamnds to use
 
+***********_MENU_*********
+Type "/help" to see menu
+Type "/kick (name)" to kick out
+Type "/rooms" to see topic rooms
+Type "/online" to see client online
+Type "/private (name) (message)" to send private message
+Tupe "/goRoom (room name)" to go ropic room    
+Type "/goPrivate (username)" to go private room with friend
+Leave chat by pressing ctrl + C
+***************************
 
 ## Sources  
 
