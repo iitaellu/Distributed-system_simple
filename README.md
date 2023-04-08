@@ -10,7 +10,7 @@ Copy or download server.py and client.py files. Then open few terminal and run o
 
 ## Comamnds to use
 
-***********_MENU_*********
+------------_MENU_----------
 Type "/help" to see menu
 Type "/kick (name)" to kick out
 Type "/rooms" to see topic rooms
@@ -19,7 +19,7 @@ Type "/private (name) (message)" to send private message
 Tupe "/goRoom (room name)" to go ropic room    
 Type "/goPrivate (username)" to go private room with friend
 Leave chat by pressing ctrl + C
-***************************
+-----------------------------
 
 ## Sources  
 
