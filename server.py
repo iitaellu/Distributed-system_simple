@@ -36,7 +36,6 @@ def handle(client):
             # Check if something what user wants to do
             #Kick named user out of chat
             if msg.decode('ascii').startswith('KICK'):
-                name_to_kick = msg.decode('ascii')[5:]
                 names = msg.decode('ascii')[5:]
                 details = names.split(" ")
                 sender = details[0]
@@ -62,7 +61,7 @@ def handle(client):
                 recipient = details[1]
                 privatemsg = msg.decode('ascii')[8+len(sender)+len(recipient)+2:]
                 sendPrivate(sender, recipient, privatemsg)
-            #Go room
+            #Go topic room
             elif msg.decode('ascii').startswith('GOROOM'):
                 names = msg.decode('ascii')[7:]
                 details = names.split(" ")
@@ -109,7 +108,7 @@ def receive():
         client, address = server.accept()
         print(f"Connected with {str(address)}")
 
-         # Request And Store Nickname
+        # Request And Store Nickname
         client.send('NICK'.encode('ascii'))
         nickname = client.recv(1024).decode('ascii')
         nicknames.append(nickname)
