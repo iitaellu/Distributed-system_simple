@@ -28,6 +28,11 @@ Type "/goPrivate (username)" to go private room with friend
 
 Leave chat by pressing ctrl + C
 
+## LINKS
+
+Document: https://lut-my.sharepoint.com/:w:/g/personal/ida_kirveskoski_student_lut_fi/ER9QjFDw3HlFsfRIxAQ2v4ABqrz3uecXBjCCIEx3H_uwMw?e=KH5y21
+
+Video: https://lut-my.sharepoint.com/:v:/g/personal/ida_kirveskoski_student_lut_fi/EVLxsE42qHBOnXaxCU3zyIgBaocWp0nkJKhhR6XhHLEP9Q?e=NCJV0x 
 
 ## Sources  
 
