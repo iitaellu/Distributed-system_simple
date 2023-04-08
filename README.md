@@ -28,7 +28,6 @@ Type "/goPrivate (username)" to go private room with friend
 
 Leave chat by pressing ctrl + C
 
-******************************
 
 ## Sources  
 
