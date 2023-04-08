@@ -1,5 +1,6 @@
 """
 https://www.youtube.com/watch?v=F_JDA96AdEI&t=254s
+https://www.neuralnine.com/tcp-chat-in-python/
 https://www.youtube.com/watch?v=3UOyky9sEQY
 
 """
@@ -155,27 +156,20 @@ def kick_user(sender, kick):
     
 # Prints list of rooms()
 def printRooms(names):
-    for i in nicknames:
-        if(str(i) == str(names)):
-            print("True")
-            name_index = nicknames.index(i)
-            client_for_show = clients[name_index]
-            print(client_for_show)
-            client_for_show.send(f" The rooms to choose {rooms}".encode('ascii'))
+    if names in nicknames:
+        name_index = nicknames.index(names)
+        client_for_show = clients[name_index]
+        client_for_show.send(f" The rooms to choose {rooms}".encode('ascii'))
 
 # Prints list of clients
 def printClients(names):
-    print(names+'!')
-    for i in nicknames:
-        if(str(i) == str(names)):
-            print("True")
-            name_index = nicknames.index(i)
-            client_for_show = clients[name_index]
-            print(client_for_show)
-            client_for_show.send(f" On the server {nicknames}".encode('ascii'))
+    print(names)
+    if names in nicknames:
+        name_index = nicknames.index(names)
+        client_for_show = clients[name_index]
+        client_for_show.send(f" On the server {nicknames}".encode('ascii'))
 
 def printMenu(name):
-    print(name)
     if name in nicknames:
         name_index = nicknames.index(name)
         client_for_menu = clients[name_index]
